@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:photostatus/presentation/all_bookings_page.dart';
-import 'package:photostatus/presentation/events_tab_page.dart';
-import 'package:photostatus/presentation/my_events_tab_page.dart';
-import 'package:photostatus/presentation/upload_desings_tab.dart';
+import 'package:photostatus/presentation/provider/all_bookings_page.dart';
+import 'package:photostatus/presentation/consumer/my_events_tab_page.dart';
+import 'package:photostatus/presentation/provider/upload_desings_tab.dart';
 
 
 class UploadHomePage extends StatefulWidget {
@@ -14,7 +13,7 @@ class UploadHomePage extends StatefulWidget {
 
 class _UploadHomePageState extends State<UploadHomePage> {
   final List<Widget> _tabs = [
-    const UploadDesingsPage(),
+    const UploadDesignsPage(),
     const AllBookingsPage(),
   ];
 

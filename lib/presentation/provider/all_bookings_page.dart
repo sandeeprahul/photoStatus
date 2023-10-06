@@ -1,7 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class AllBookingsPage extends StatefulWidget {
   const AllBookingsPage({super.key});
@@ -11,6 +14,7 @@ class AllBookingsPage extends StatefulWidget {
 }
 
 class _AllBookingsPageState extends State<AllBookingsPage> {
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<QueryDocumentSnapshot>>(
@@ -39,12 +43,12 @@ class _AllBookingsPageState extends State<AllBookingsPage> {
             final status = bookingData['status'] as String;
             final name = bookingData['name'] as String;
             final date = bookingData['timeStamp'] as Timestamp;
-            final uplodedDate = date.toDate();
+            final uploadedDate = date.toDate();
 
             final monthFormat = DateFormat('MMM');
 
 // Format the date to get the 3-letter month name
-            final monthName = monthFormat.format(uplodedDate);
+            final monthName = monthFormat.format(uploadedDate);
 
             return Container(
               alignment: Alignment.center,
@@ -64,8 +68,11 @@ class _AllBookingsPageState extends State<AllBookingsPage> {
                         Text(status=="pending"?"Pending":status,style: TextStyle(color:status=="pending"?Colors.red:Colors.green ),),
                       ],
                     ),
-                    Text('Uploaded date: ${uplodedDate.day}th $monthName'),
+                    Text('Uploaded date: ${uploadedDate.day}th $monthName'),
+                    ElevatedButton(onPressed: (){
+                      downloadImage(userImageUrl); // Replace with your image URL
 
+                    }, child: const Text('Download'))
                   ],
                 ),
               ),
@@ -75,7 +82,44 @@ class _AllBookingsPageState extends State<AllBookingsPage> {
       },
     );
   }
+  void downloadImage(String imageUrl) async {
+    try {
+      final response = await http.get(Uri.parse(imageUrl));
 
+      if (response.statusCode == 200) {
+        // Image downloaded successfully
+        final bytes = response.bodyBytes;
+
+        // Now you can use the 'bytes' to display the image or save it as needed
+        final imageWidget = Image.memory(Uint8List.fromList(bytes));
+
+        // Display the downloaded image
+        showDialog(
+          context:context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Downloaded Image'),
+              content: imageWidget,
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Close'),
+                ),
+              ],
+            );
+          },
+        );
+
+        print('Image downloaded.');
+      } else {
+        print('Failed to download image. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error downloading image: $e');
+    }
+  }
 
   Stream<List<QueryDocumentSnapshot>> getUserBookingsStream() {
     final currentUser = FirebaseAuth.instance.currentUser;

@@ -29,6 +29,7 @@ class EventsTab extends StatelessWidget {
           itemCount: documents.length,
           itemBuilder: (context, index) {
             final imageUrl = documents[index]['image'];
+            final price = documents[index]['price'];
 
             void navigateToOtherPage() {
               Navigator.of(context).push(
@@ -48,13 +49,25 @@ class EventsTab extends StatelessWidget {
               child: Card(
                 child: Column(
                   children: [
-                    Image.network(
-                      imageUrl,
-                      width: MediaQuery.of(context)
-                          .size
-                          .width, // Adjust the width as needed
+                    SizedBox(
                       height: 200, // Adjust the height as needed
-                      fit: BoxFit.cover, // Adjust the fit as needed
+
+                      child: Stack(
+                        children: [
+                          Image.network(
+                            imageUrl,
+                            width: MediaQuery.of(context)
+                                .size
+                                .width, // Adjust the width as needed
+                            fit: BoxFit.cover, // Adjust the fit as needed
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            margin: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),),
+                            child: Text(price),)
+                        ],
+                      ),
                     ),
                     Container(
                       width: MediaQuery.of(context)

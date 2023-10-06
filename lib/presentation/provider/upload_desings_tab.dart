@@ -10,15 +10,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:photostatus/presentation/widgets/dialogs.dart';
 
-class UploadDesingsPage extends StatefulWidget {
-  const UploadDesingsPage({super.key});
+class UploadDesignsPage extends StatefulWidget {
+  const UploadDesignsPage({super.key});
 
 
   @override
-  State<UploadDesingsPage> createState() => _UploadDesingsPageState();
+  State<UploadDesignsPage> createState() => _UploadDesignsPageState();
 }
 
-class _UploadDesingsPageState extends State<UploadDesingsPage> {
+class _UploadDesignsPageState extends State<UploadDesignsPage> {
   // Constructor to receive imageUrl
   final picker = ImagePicker();
 
@@ -62,6 +62,7 @@ class _UploadDesingsPageState extends State<UploadDesingsPage> {
       // Upload data to Firestore
       FirebaseFirestore.instance.collection('photos').add({
         'image':imageurlFromstorage,
+        'price':"100",
         // Add other fields as needed
       });
 

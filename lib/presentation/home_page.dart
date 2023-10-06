@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:photostatus/presentation/events_tab_page.dart';
-import 'package:photostatus/presentation/my_events_tab_page.dart';
+import 'package:photostatus/presentation/consumer/my_events_tab_page.dart';
+
+import 'consumer/events_tab_page.dart';
 
 
 class MyHomePage extends StatefulWidget {

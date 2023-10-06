@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:photostatus/presentation/PhoneVerificationPage.dart';
 import 'package:photostatus/presentation/home_page.dart';
-import 'package:photostatus/presentation/upload_home_page.dart';
+import 'package:photostatus/presentation/provider/upload_home_page.dart';
 
 import 'controllers/user_controller.dart';
 import 'firebase_options.dart';

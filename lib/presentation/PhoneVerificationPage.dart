@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:photostatus/models/user_details.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:photostatus/presentation/upload_home_page.dart';
+import 'package:photostatus/presentation/provider/upload_home_page.dart';
 
 import '../controllers/user_controller.dart';
 import '../firebase_calls/FirebaseAuthenticationService.dart';
