@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "580609905087",
+    "project_id": "photostatus-2f31f",
+    "storage_bucket": "photostatus-2f31f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580609905087:android:e42359151c82c67f20d10a",
+        "android_client_info": {
+          "package_name": "com.universe.photostatus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr7TK1RKXbnTi0P6okw1OdFt-GbcRGXh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
