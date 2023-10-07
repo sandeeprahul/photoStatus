@@ -34,24 +34,22 @@ class EventsTab extends StatelessWidget {
             void navigateToOtherPage() {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) =>
-                      BookEventPage (imageUrl), // Replace with your other page widget
+                  builder: (context) => BookEventPage(
+                      imageUrl), // Replace with your other page widget
                 ),
               );
             }
 
             // Display the image using Image.network
             return GestureDetector(
-              onTap: (){
+              onTap: () {
                 navigateToOtherPage();
-
               },
               child: Card(
                 child: Column(
                   children: [
                     SizedBox(
                       height: 200, // Adjust the height as needed
-
                       child: Stack(
                         children: [
                           Image.network(
@@ -61,21 +59,28 @@ class EventsTab extends StatelessWidget {
                                 .width, // Adjust the width as needed
                             fit: BoxFit.cover, // Adjust the fit as needed
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            margin: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),),
-                            child: Text(price),)
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              margin: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: Theme.of(context).secondaryHeaderColor),
+                              child: Text("$price Rs"),
+                            ),
+                          )
                         ],
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context)
-                          .size
-                          .width,
+                      width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.all(8),
-
-                      child: const Center(child: Text('Get this design',style: TextStyle(fontSize: 16),)),
+                      child:  Center(
+                          child: Text(
+                        'Get this design $price Rs',
+                        style: const TextStyle(fontSize: 16),
+                      )),
                     ),
                   ],
                 ),

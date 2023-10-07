@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:photostatus/models/user_details.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:photostatus/presentation/provider/upload_home_page.dart';
+import 'package:photostatus/presentation/widgets/dialogs.dart';
 
 import '../controllers/user_controller.dart';
 import '../firebase_calls/FirebaseAuthenticationService.dart';
@@ -23,6 +24,7 @@ class PhoneVerificationPage extends StatelessWidget {
   PhoneVerificationPage({super.key});
 
   Future<void> verifyPhoneNumber() async {
+
     String phoneNumber ="+91${phoneNumberController.text.trim()}";
 
     // if(Platform.isAndroid){
@@ -84,6 +86,8 @@ class PhoneVerificationPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                showLoaderDialog(context);
+
                 verifyPhoneNumber();
               },
               child: const Text('Send OTP'),

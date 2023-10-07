@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,6 +27,7 @@ class _UploadDesignsPageState extends State<UploadDesignsPage> {
   XFile? _image;
 
   TextEditingController nameController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
   Future<void> _getImage() async {
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
@@ -34,7 +36,8 @@ class _UploadDesignsPageState extends State<UploadDesignsPage> {
       _image = pickedImage;
     });
     if(_image!=null){
-      _uploadData();
+      // _uploadData();
+      showMyTextDialog();
     }
   }
   @override
@@ -62,7 +65,7 @@ class _UploadDesignsPageState extends State<UploadDesignsPage> {
       // Upload data to Firestore
       FirebaseFirestore.instance.collection('photos').add({
         'image':imageurlFromstorage,
-        'price':"100",
+        'price':priceController.text.toString(),
         // Add other fields as needed
       });
 
@@ -73,6 +76,49 @@ class _UploadDesignsPageState extends State<UploadDesignsPage> {
     });
     showMyDialog();
     // Navigator.pop(context);
+  }
+
+  void showMyTextDialog(){
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => WillPopScope(
+        onWillPop: () => Future.value(false),
+        child: AlertDialog(
+          title: const Text("Enter price"),
+          content:  Column(
+            children: [
+              CircleAvatar(
+                radius: 50,
+                child: CircleAvatar(
+                  radius: 48,
+                    child: Image.file(File(_image!.path))),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: priceController,
+                maxLength: 3,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                    hintText: 'Enter Price',suffixIcon: Icon(Icons.currency_rupee)),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if(priceController.text.isNotEmpty){
+                  Navigator.pop(context);
+                  _uploadData();
+                }
+
+              },
+              child: const Text("Okay"),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void showMyDialog(){
@@ -105,10 +151,9 @@ class _UploadDesignsPageState extends State<UploadDesignsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // title: const Text('Upload your Designs'),
-      ),
+
       floatingActionButton: CircleAvatar(
+        radius: 28,
         child: IconButton(
           icon: const Icon(Icons.upload),onPressed: (){
           _getImage();

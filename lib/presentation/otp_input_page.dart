@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photostatus/presentation/provider/upload_home_page.dart';
+import 'package:photostatus/presentation/widgets/dialogs.dart';
 
 import '../controllers/user_controller.dart';
 import '../firebase_calls/FirebaseAuthenticationService.dart';
@@ -21,6 +22,7 @@ class OTPInputPage extends StatelessWidget {
   final TextEditingController otpController = TextEditingController();
 
   Future<void> verifyOTP() async {
+
     String otp = otpController.text.trim();
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
       verificationId: verificationId,
@@ -66,6 +68,7 @@ class OTPInputPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                showLoaderDialog(context);
                 verifyOTP();
               },
               child: const Text('Verify OTP'),

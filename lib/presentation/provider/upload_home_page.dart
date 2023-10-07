@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photostatus/presentation/provider/all_bookings_page.dart';
+import 'package:photostatus/presentation/provider/all_bookings_tab.dart';
 import 'package:photostatus/presentation/consumer/my_events_tab_page.dart';
 import 'package:photostatus/presentation/provider/upload_desings_tab.dart';
 
