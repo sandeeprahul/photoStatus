@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -25,6 +26,7 @@ class _UploadDesignsPageState extends State<UploadDesignsPage> {
 
 
   XFile? _image;
+  CroppedFile? _croppedImage;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -32,13 +34,24 @@ class _UploadDesignsPageState extends State<UploadDesignsPage> {
   Future<void> _getImage() async {
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      _image = pickedImage;
-    });
-    if(_image!=null){
-      // _uploadData();
-      showMyTextDialog();
+    if(pickedImage!=null){
+      final croppedImage = await ImageCropper().cropImage(
+        sourcePath: pickedImage.path,
+        // aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+        compressQuality: 100,
+      );
+      setState(() {
+        _image = pickedImage;
+        _croppedImage = croppedImage;
+
+      });
+
+      if(croppedImage!=null){
+        // _uploadData();
+        showMyTextDialog();
+      }
     }
+
   }
   @override
   void dispose() {
@@ -51,13 +64,12 @@ class _UploadDesignsPageState extends State<UploadDesignsPage> {
 
     if (_image == null) {
       // Handle case where no image is selected
-
       return;
     }
 
     final fileName = DateTime.now().millisecondsSinceEpoch.toString();
     final Reference storageRef = FirebaseStorage.instance.ref().child('designs/$fileName.jpg');
-    final UploadTask uploadTask = storageRef.putFile(File(_image!.path));
+    final UploadTask uploadTask = storageRef.putFile(File(_croppedImage!.path));
 
     await uploadTask.whenComplete(() async {
       final imageurlFromstorage = await storageRef.getDownloadURL();

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:photostatus/presentation/PhoneVerificationPage.dart';
+import 'package:photostatus/presentation/download_apk_page.dart';
 import 'package:photostatus/presentation/home_page.dart';
 import 'package:photostatus/presentation/provider/upload_home_page.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'controllers/user_controller.dart';
 import 'firebase_options.dart';
@@ -39,7 +41,8 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: currentUser == null
+      home: kIsWeb?const DownloadButton():
+      currentUser == null
           ? PhoneVerificationPage()
           : currentUser!.phoneNumber == "+918106519615"
               ? const UploadHomePage()

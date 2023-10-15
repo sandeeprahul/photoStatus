@@ -42,8 +42,12 @@ dependencies:
   firebase_auth: ^4.10.0
   cloud_firestore: ^4.9.2
   get: ^4.6.6
+  url_launcher: ^6.0.13
   intl: ^0.18.1
   image_picker: 1.0.4
+  image_cropper: ^5.0.0
+  upi_india: ^3.0.1
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:

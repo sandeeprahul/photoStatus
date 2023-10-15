@@ -12,7 +12,20 @@
           "package_name": "com.universe.photostatus"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "580609905087-rftecjeql2jp4h163isq1pejp0n2f1sf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.universe.photostatus",
+            "certificate_hash": "4f82792661ff0d722d6727ddc12c16471f593572"
+          }
+        },
+        {
+          "client_id": "580609905087-u5is5olriil53p0o1i8dvsnb2crgcdj7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBr7TK1RKXbnTi0P6okw1OdFt-GbcRGXh0"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580609905087-u5is5olriil53p0o1i8dvsnb2crgcdj7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "580609905087-2c96701ppiqg2tpr1vdd2l8nu4f8kvl0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.universe.photostatus"
+              }
+            }
+          ]
         }
       }
     }

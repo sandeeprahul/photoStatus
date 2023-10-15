@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:photostatus/main.dart';
+import 'package:photostatus/presentation/PhoneVerificationPage.dart';
 
 class AllBookingsPage extends StatefulWidget {
   const AllBookingsPage({super.key});
@@ -27,7 +28,7 @@ class _AllBookingsPageState extends State<AllBookingsPage> {
 
     // Navigate to the login page and clear all previous routes
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => MyApp()), // Replace with your login page
+      MaterialPageRoute(builder: (context) => PhoneVerificationPage()), // Replace with your login page
           (Route<dynamic> route) => false, // Clears all previous routes
     );
   }

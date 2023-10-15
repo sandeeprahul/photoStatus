@@ -27,7 +27,7 @@ class _MyEventsTabState extends State<MyEventsTab> {
         final userBookings = snapshot.data;
 
         if (userBookings == null || userBookings.isEmpty) {
-          return const Text('No bookings found for the current user.');
+          return const Center(child: Text('No Orders.'));
         }
 
         return ListView.builder(
@@ -38,6 +38,7 @@ class _MyEventsTabState extends State<MyEventsTab> {
             final userImageUrl = bookingData['userImageUrl'] as String;
             final status = bookingData['status'] as String;
             final name = bookingData['name'] as String;
+            final orderId = bookingData['orderId'] as String;
             final date = bookingData['timeStamp'] as Timestamp;
             final uplodedDate = date.toDate();
 
@@ -57,14 +58,20 @@ class _MyEventsTabState extends State<MyEventsTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Name: $name'),
+                    Text('OrderId: $orderId'),
                     Row(
                       children: [
                         Text(status=="pending"?"Status: ":'Status: '),
                         Text(status=="pending"?"Pending":status,style: TextStyle(color:status=="pending"?Colors.red:Colors.green ),),
                       ],
                     ),
-                    Text('Uploaded date: ${uplodedDate.day}th $monthName'),
+                    Row(
+                      children: [
+                        const Text('Payment Status: '),
+                        Text('$status ',style: TextStyle(color:status=="pending"?Colors.red:Colors.green )),
+
+                      ],
+                    ),
 
                   ],
                 ),
@@ -80,7 +87,7 @@ class _MyEventsTabState extends State<MyEventsTab> {
   Stream<List<QueryDocumentSnapshot>> getUserBookingsStream() {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) {
-      return Stream.value([]); // User is not logged in
+      return Stream.value([]);
     }
 
     final uid = currentUser.uid;
@@ -93,7 +100,7 @@ class _MyEventsTabState extends State<MyEventsTab> {
           .map((querySnapshot) => querySnapshot.docs);
     } catch (e) {
       print('Error fetching user bookings: $e');
-      return Stream.value([]); // Handle errors by returning an empty stream
+      return Stream.value([]);
     }
   }
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:photostatus/presentation/consumer/my_events_tab_page.dart';
+import 'package:photostatus/presentation/consumer/photo_frames_page.dart';
+import 'package:photostatus/presentation/widgets/custom_bottom_navigation_bar.dart';
 
 import 'consumer/events_tab_page.dart';
-
+import 'consumer/video_edit_age.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -13,7 +15,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _tabs = [
-    EventsTab(),
+    const EventsTab(),
+    const VideoEditPage(),
+    const PhotoFramesPage(),
     const MyEventsTab(),
   ];
 
@@ -23,27 +27,23 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text(_selectedIndex==0?'Select a design':'My bookings'),
+        title: Text(_selectedIndex == 0
+            ? 'Select a design'
+            : _selectedIndex == 3
+                ? 'My Orders'
+                : ''),
       ),
       body: IndexedStack(
         index: _selectedIndex,
         children: _tabs,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Designs',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'My Bookings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onTabTapped,
-      ),
+      bottomNavigationBar: CustomBottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTabTapped: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          }),
     );
   }
 
